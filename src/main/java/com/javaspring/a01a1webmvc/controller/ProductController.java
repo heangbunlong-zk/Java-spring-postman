@@ -4,6 +4,7 @@ import com.javaspring.a01a1webmvc.dto.ProductCreateRequest;
 import com.javaspring.a01a1webmvc.dto.ProductResponse;
 import com.javaspring.a01a1webmvc.dto.UpdateProductRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
+
+    @GetMapping("/{code}")
+    public ProductResponse getProductByCode(@PathVariable String code) {
+        log.info("getProductByCode: {}", code);
+        return null;
+    }
 
     @GetMapping
     public List<ProductResponse> getProducts(@RequestParam(required = false, defaultValue = "0") int PageNumber,
@@ -33,7 +40,8 @@ public class ProductController {
 //            ) {
 //        log.info("CreateProductRequesr: {}", productCreateRequest);
 //    }
-
+    //201
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createNewProduct(
             @RequestBody ProductCreateRequest createProductRequest
@@ -59,6 +67,7 @@ public class ProductController {
         log.info("patchProductRequest: {}", updateProductRequest);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{code}")
     public void deleteProductByCode(
             @PathVariable String code
