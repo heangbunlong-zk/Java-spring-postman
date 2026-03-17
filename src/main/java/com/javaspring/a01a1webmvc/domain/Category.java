@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "categories")
+
 public class Category {
 
     // need to add primery key jakata
@@ -19,6 +20,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    // custom column
     @Column(length = 50, unique = true, nullable = false)
     private String name;
 

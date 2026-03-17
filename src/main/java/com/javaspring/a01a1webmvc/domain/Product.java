@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Setter
 @Getter
@@ -28,4 +29,7 @@ public class Product {
 
     @ManyToOne
     private Category category;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderLine> orderLines;
 }

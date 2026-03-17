@@ -3,6 +3,8 @@ package com.javaspring.a01a1webmvc.controller;
 import com.javaspring.a01a1webmvc.dto.ProductCreateRequest;
 import com.javaspring.a01a1webmvc.dto.ProductResponse;
 import com.javaspring.a01a1webmvc.dto.UpdateProductRequest;
+import com.javaspring.a01a1webmvc.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
+
+    // hav ProductSevice
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+
+    }
+
 
     @GetMapping("/{code}")
     public ProductResponse getProductByCode(@PathVariable String code) {
@@ -43,10 +54,11 @@ public class ProductController {
     //201
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createNewProduct(
-            @RequestBody ProductCreateRequest createProductRequest
+    public ProductResponse createNewProduct(
+          @Valid @RequestBody ProductCreateRequest createProductRequest
     ){
        log.info("createProductRequest: {}", createProductRequest);
+       return productService.createNewProduct(createProductRequest);
     }
 
     @PutMapping("/{code}")
